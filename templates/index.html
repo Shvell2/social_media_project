@@ -1,0 +1,331 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickChat - Мессенджер</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .messenger-container {
+            width: 90%;
+            max-width: 1200px;
+            height: 90vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Сайдбар с контактами */
+        .sidebar {
+            width: 350px;
+            background: #f8f9fa;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .user-info h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .user-info p {
+            margin: 2px 0 0 0;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .search-container {
+            padding: 15px 20px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .contacts-list {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Основная область чата */
+<!--        .chat-area {-->
+<!--            flex: 1;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--        }-->
+
+<!--        .chat-header {-->
+<!--            padding: 20px;-->
+<!--            background: white;-->
+<!--            border-bottom: 1px solid #e0e0e0;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: space-between;-->
+<!--        }-->
+
+<!--        .chat-partner {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            gap: 15px;-->
+<!--        }-->
+
+<!--        .chat-actions {-->
+<!--            display: flex;-->
+<!--            gap: 15px;-->
+<!--        }-->
+
+<!--        .chat-actions i {-->
+<!--            color: #666;-->
+<!--            cursor: pointer;-->
+<!--            font-size: 18px;-->
+<!--            transition: color 0.3s;-->
+<!--        }-->
+
+<!--        .chat-actions i:hover {-->
+<!--            color: #2196f3;-->
+<!--        }-->
+
+<!--        .messages-container {-->
+<!--            flex: 1;-->
+<!--            padding: 20px;-->
+<!--            overflow-y: auto;-->
+<!--            background: #fafafa;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--        }-->
+
+<!--        .chat-empty-state {-->
+<!--            text-align: center;-->
+<!--            color: #666;-->
+<!--        }-->
+
+<!--        .chat-empty-state i {-->
+<!--            font-size: 64px;-->
+<!--            color: #ddd;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+
+<!--        .message-input-container {-->
+<!--            padding: 20px;-->
+<!--            background: white;-->
+<!--            border-top: 1px solid #e0e0e0;-->
+<!--        }-->
+
+<!--        .input-wrapper {-->
+<!--            display: flex;-->
+<!--            gap: 10px;-->
+<!--            align-items: center;-->
+<!--        }-->
+
+<!--        .input-wrapper input {-->
+<!--            flex: 1;-->
+<!--            padding: 12px 20px;-->
+<!--            border: 1px solid #ddd;-->
+<!--            border-radius: 25px;-->
+<!--            outline: none;-->
+<!--            font-size: 14px;-->
+<!--        }-->
+
+<!--        .send-button {-->
+<!--            background: #2196f3;-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            width: 45px;-->
+<!--            height: 45px;-->
+<!--            border-radius: 50%;-->
+<!--            cursor: pointer;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            transition: background 0.3s;-->
+<!--        }-->
+
+<!--        .send-button:hover {-->
+<!--            background: #1976d2;-->
+<!--        }-->
+
+<!--        .attachment-button {-->
+<!--            background: none;-->
+<!--            border: none;-->
+<!--            color: #666;-->
+<!--            font-size: 20px;-->
+<!--            cursor: pointer;-->
+<!--            padding: 10px;-->
+<!--        }-->
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .messenger-container {
+                width: 100%;
+                height: 100vh;
+                border-radius: 0;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .chat-area {
+                display: none;
+            }
+
+            .chat-area.active {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="messenger-container">
+        <!-- Сайдбар с контактами -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <div class="avatar">avatar</div>
+                    <div class="user-info">
+                        <h3>Username</h3>
+                        <p>В сети</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" placeholder="Поиск контактов...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+
+            <div class="contacts-list">
+                <div class="empty-state">
+                    <i class="fas fa-comments"></i>
+                    <p>Контакты не найдены</p>
+                    <p style="font-size: 12px; margin-top: 5px;">Используйте поиск для нахождения контактов</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Основная область чата -->
+        <div class="chat-area">
+            <div class="chat-header">
+                <div class="chat-partner">
+                    <div class="avatar">?</div>
+                    <div>
+                        <h3>Выберите чат</h3>
+                        <p>Начните общение</p>
+                    </div>
+                </div>
+                <div class="chat-actions">
+                    <i class="fas fa-phone-alt"></i>
+                    <i class="fas fa-video"></i>
+                    <i class="fas fa-info-circle"></i>
+                </div>
+            </div>
+
+            <div class="messages-container">
+                <div class="chat-empty-state">
+                    <i class="fas fa-comment-dots"></i>
+                    <h3>Выберите контакт для начала общения</h3>
+                    <p>Сообщения будут отображаться здесь</p>
+                </div>
+            </div>
+
+            <div class="message-input-container">
+                <div class="input-wrapper">
+                    <button class="attachment-button">
+                        <i class="fas fa-paperclip"></i>
+                    </button>
+                    <input type="text" placeholder="Выберите контакт для отправки сообщения..." disabled>
+                    <button class="send-button" disabled>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
