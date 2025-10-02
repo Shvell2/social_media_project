@@ -11,6 +11,8 @@ def main_page():
 def registr():
     return None
 
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 
