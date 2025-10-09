@@ -4,6 +4,7 @@ from app.forms.registrform import RegistrationForm
 from flask_login import current_user
 from app import app, db
 
+#настроить LoginManager
 
 @app.route("/")
 def main_page():
