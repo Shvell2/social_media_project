@@ -1,14 +1,12 @@
 from flask import Flask, redirect, render_template, url_for, flash
 from app.models import User
 from app.forms.registrform import RegistrationForm
-from app import db
 from flask_login import current_user
-from app import create_app
+from app import app, db
 
-app = create_app()
+
 @app.route("/")
 def main_page():
-    print(100)
     return render_template("index.html")
 
 @app.route("/registr_page", methods=["POST", "GET"])
