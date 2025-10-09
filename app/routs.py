@@ -5,16 +5,16 @@ from app import db
 from flask_login import current_user
 from app import create_app
 
-app = create_app
+app = create_app()
 @app.route("/")
 def main_page():
-
+    print(100)
     return render_template("index.html")
 
-@app.route("/registr_page")
+@app.route("/registr_page", methods=["POST", "GET"])
 def registration():
     if current_user.is_authenticated:
-        return redirect(url_for('templates.index'))
+        return redirect(url_for('main_page'))
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
@@ -22,5 +22,5 @@ def registration():
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('main_page'))
     return render_template('register.html', title='Register', form=form)
