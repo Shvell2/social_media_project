@@ -6,18 +6,25 @@ from flask_migrate import Migrate
 from flask import Flask
 from flask_login import login_user, logout_user, current_user, LoginManager
 
-
+app = Flask(__name__)
+app.config.from_object(Config)
 db = SQLAlchemy()
+
 migrate = Migrate()
 login = LoginManager()
 
-
-app = Flask(__name__)
-app.config.from_object(Config)
-db.init_app(app)
 migrate.init_app(app, db)
 login.init_app(app)
-from app import routs, models
+db.init_app(app)
+
+from app import routs
+from app.models import User
+
+
+with app.app_context():
+    db.create_all()
+
+
 
 
 

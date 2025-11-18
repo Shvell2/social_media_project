@@ -1,3 +1,334 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="ru">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>QuickChat - Мессенджер</title>-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">-->
+<!--    <style>-->
+<!--        * {-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            box-sizing: border-box;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);-->
+<!--            height: 100vh;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--        }-->
+
+<!--        .messenger-container {-->
+<!--            width: 90%;-->
+<!--            max-width: 1200px;-->
+<!--            height: 90vh;-->
+<!--            background: white;-->
+<!--            border-radius: 20px;-->
+<!--            box-shadow: 0 20px 40px rgba(0,0,0,0.1);-->
+<!--            display: flex;-->
+<!--            overflow: hidden;-->
+<!--        }-->
+
+<!--        /* Сайдбар с контактами */-->
+<!--        .sidebar {-->
+<!--            width: 350px;-->
+<!--            background: #f8f9fa;-->
+<!--            border-right: 1px solid #e0e0e0;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--        }-->
+
+<!--        .sidebar-header {-->
+<!--            padding: 20px;-->
+<!--            background: white;-->
+<!--            border-bottom: 1px solid #e0e0e0;-->
+<!--        }-->
+
+<!--        .user-profile {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            gap: 15px;-->
+<!--        }-->
+
+<!--        .avatar {-->
+<!--            width: 50px;-->
+<!--            height: 50px;-->
+<!--            border-radius: 50%;-->
+<!--            background: linear-gradient(45deg, #667eea, #764ba2);-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            color: white;-->
+<!--            font-weight: bold;-->
+<!--            font-size: 20px;-->
+<!--        }-->
+
+<!--        .user-info h3 {-->
+<!--            margin: 0;-->
+<!--            color: #333;-->
+<!--        }-->
+
+<!--        .user-info p {-->
+<!--            margin: 2px 0 0 0;-->
+<!--            color: #666;-->
+<!--            font-size: 12px;-->
+<!--        }-->
+
+<!--        .search-container {-->
+<!--            padding: 15px 20px;-->
+<!--            background: white;-->
+<!--            border-bottom: 1px solid #e0e0e0;-->
+<!--        }-->
+
+<!--        .search-box {-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        .search-box input {-->
+<!--            width: 100%;-->
+<!--            padding: 10px 40px 10px 15px;-->
+<!--            border: 1px solid #ddd;-->
+<!--            border-radius: 20px;-->
+<!--            outline: none;-->
+<!--            font-size: 14px;-->
+<!--        }-->
+
+<!--        .search-box i {-->
+<!--            position: absolute;-->
+<!--            right: 15px;-->
+<!--            top: 50%;-->
+<!--            transform: translateY(-50%);-->
+<!--            color: #999;-->
+<!--        }-->
+
+<!--        .contacts-list {-->
+<!--            flex: 1;-->
+<!--            overflow-y: auto;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            color: #666;-->
+<!--        }-->
+
+<!--        .empty-state {-->
+<!--            text-align: center;-->
+<!--            padding: 40px 20px;-->
+<!--        }-->
+
+<!--        .empty-state i {-->
+<!--            font-size: 48px;-->
+<!--            color: #ccc;-->
+<!--            margin-bottom: 15px;-->
+<!--        }-->
+
+<!--        .empty-state p {-->
+<!--            font-size: 14px;-->
+<!--            line-height: 1.5;-->
+<!--        }-->
+
+<!--        /* Основная область чата */-->
+<!--        .chat-area {-->
+<!--            flex: 1;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--        }-->
+
+<!--        .chat-header {-->
+<!--            padding: 20px;-->
+<!--            background: white;-->
+<!--            border-bottom: 1px solid #e0e0e0;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: space-between;-->
+<!--        }-->
+
+<!--        .chat-partner {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            gap: 15px;-->
+<!--        }-->
+
+<!--        .chat-actions {-->
+<!--            display: none;-->
+<!--            gap: 15px;-->
+<!--        }-->
+
+<!--        .chat-actions i {-->
+<!--            color: #666;-->
+<!--            cursor: pointer;-->
+<!--            font-size: 18px;-->
+<!--            transition: color 0.3s;-->
+<!--        }-->
+
+<!--        .chat-actions i:hover {-->
+<!--            color: #2196f3;-->
+
+<!--        }-->
+
+<!--        .messages-container {-->
+<!--            flex: 1;-->
+<!--            padding: 20px;-->
+<!--            overflow-y: auto;-->
+<!--            background: #fafafa;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--        }-->
+
+<!--        .chat-empty-state {-->
+<!--            text-align: center;-->
+<!--            color: #666;-->
+<!--        }-->
+
+<!--        .chat-empty-state i {-->
+<!--            font-size: 64px;-->
+<!--            color: #ddd;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+
+<!--        .message-input-container {-->
+<!--            padding: 20px;-->
+<!--            background: white;-->
+<!--            border-top: 1px solid #e0e0e0;-->
+<!--        }-->
+
+<!--        .input-wrapper {-->
+<!--            display: flex;-->
+<!--            gap: 10px;-->
+<!--            align-items: center;-->
+<!--        }-->
+
+<!--        .input-wrapper input {-->
+<!--            flex: 1;-->
+<!--            padding: 12px 20px;-->
+<!--            border: 1px solid #ddd;-->
+<!--            border-radius: 25px;-->
+<!--            outline: none;-->
+<!--            font-size: 14px;-->
+<!--        }-->
+
+<!--        .send-button {-->
+<!--            background: #2196f3;-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            width: 45px;-->
+<!--            height: 45px;-->
+<!--            border-radius: 50%;-->
+<!--            cursor: pointer;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            transition: background 0.3s;-->
+<!--        }-->
+
+<!--        .send-button:hover {-->
+<!--            background: #1976d2;-->
+<!--        }-->
+
+<!--        .attachment-button {-->
+<!--            background: none;-->
+<!--            border: none;-->
+<!--            color: #666;-->
+<!--            font-size: 20px;-->
+<!--            cursor: pointer;-->
+<!--            padding: 10px;-->
+<!--        }-->
+
+<!--        /* Адаптивность */-->
+<!--        @media (max-width: 768px) {-->
+<!--            .messenger-container {-->
+<!--                width: 100%;-->
+<!--                height: 100vh;-->
+<!--                border-radius: 0;-->
+<!--            }-->
+
+<!--            .sidebar {-->
+<!--                width: 100%;-->
+<!--            }-->
+
+<!--            .chat-area {-->
+<!--                display: none;-->
+<!--            }-->
+
+<!--            .chat-area.active {-->
+<!--                display: flex;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="messenger-container">-->
+<!--        &lt;!&ndash; Сайдбар с контактами &ndash;&gt;-->
+<!--        <div class="sidebar">-->
+<!--            <div class="sidebar-header">-->
+<!--                <div class="user-profile">-->
+<!--                    <div class="avatar">avatar</div>-->
+<!--                    <div class="user-info">-->
+<!--                        <h3>{{username}}</h3>-->
+<!--                        <p>online</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="search-container">-->
+<!--                <div class="search-box">-->
+<!--                    <input type="text" placeholder="Поиск контактов...">-->
+<!--                    <i class="fas fa-search"></i>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="contacts-list">-->
+<!--                <div class="empty-state">-->
+<!--                    <i class="fas fa-comments"></i>-->
+<!--                    <p>Контакты не найдены</p>-->
+<!--                    <p style="font-size: 12px; margin-top: 5px;">Используйте поиск для нахождения контактов</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Основная область чата &ndash;&gt;-->
+<!--        <div class="chat-area">-->
+<!--            <div class="chat-header">-->
+<!--                <div class="chat-partner">-->
+<!--                    <div class="avatar">?</div>-->
+<!--                    <div>-->
+<!--                        <h3>Выберите чат</h3>-->
+<!--                        <p>Начните общение</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="chat-actions">-->
+<!--                    <i  class="fas fa-phone-alt"></i>-->
+<!--                    <i class="fas fa-video"></i>-->
+<!--                    <i class="fas fa-info-circle"></i>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="messages-container">-->
+<!--                <div class="chat-empty-state">-->
+<!--                    <i class="fas fa-comment-dots"></i>-->
+<!--                    <h3>Выберите контакт для начала общения</h3>-->
+<!--                    <p>Сообщения будут отображаться здесь</p>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="message-input-container">-->
+<!--                <div class="input-wrapper">-->
+<!--                    <button class="attachment-button">-->
+<!--                        <i class="fas fa-paperclip"></i>-->
+<!--                    </button>-->
+<!--                    <input type="text" placeholder="Выберите контакт для отправки сообщения..." disabled>-->
+<!--                    <button class="send-button" disabled>-->
+<!--                        <i class="fas fa-paper-plane"></i>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -45,12 +376,67 @@
             padding: 20px;
             background: white;
             border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .user-profile {
             display: flex;
             align-items: center;
             gap: 15px;
+            flex: 1;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .login-btn {
+            background: transparent;
+            border: 2px solid #2196f3;
+            color: #2196f3;
+        }
+
+        .login-btn:hover {
+            background: #2196f3;
+            color: white;
+        }
+
+        .register-btn {
+            background: #2196f3;
+            border: 2px solid #2196f3;
+            color: white;
+        }
+
+        .register-btn:hover {
+            background: #1976d2;
+            border-color: #1976d2;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 2px solid #ff4444;
+            color: #ff4444;
+        }
+
+        .logout-btn:hover {
+            background: #ff4444;
+            color: white;
         }
 
         .avatar {
@@ -165,7 +551,6 @@
 
         .chat-actions i:hover {
             color: #2196f3;
-
         }
 
         .messages-container {
@@ -237,6 +622,112 @@
             padding: 10px;
         }
 
+        /* Формы авторизации */
+        .auth-forms {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #2196f3;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #1976d2;
+        }
+
+        .switch-auth {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .switch-auth a {
+            color: #2196f3;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .switch-auth a:hover {
+            text-decoration: underline;
+        }
+
+        /* Уведомления */
+        .flash-messages {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .flash-message {
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .flash-success {
+            background: #4caf50;
+        }
+
+        .flash-error {
+            background: #f44336;
+        }
+
+        .flash-info {
+            background: #2196f3;
+        }
+
         /* Адаптивность */
         @media (max-width: 768px) {
             .messenger-container {
@@ -256,22 +747,108 @@
             .chat-area.active {
                 display: flex;
             }
+
+            .auth-buttons {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .auth-btn {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Уведомления -->
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
     <div class="messenger-container">
         <!-- Сайдбар с контактами -->
         <div class="sidebar">
             <div class="sidebar-header">
                 <div class="user-profile">
-                    <div class="avatar">avatar</div>
+                    <div class="avatar">
+                        {% if session.username %}
+                            {{ session.username[0]|upper }}
+                        {% else %}
+                            ?
+                        {% endif %}
+                    </div>
                     <div class="user-info">
-                        <h3>username</h3>
-                        <p>online</p>
+                        <h3>{{ session.username if session.username else 'Гость' }}</h3>
+                        <p>{{ 'online' if session.username else 'не авторизован' }}</p>
+                    </div>
+                </div>
+                <div class="auth-buttons">
+                    {% if not session.username %}
+                        <a href="#login" class="auth-btn login-btn" onclick="showForm('login')">Войти</a>
+                        <a href="#register" class="auth-btn register-btn" onclick="showForm('register')">Регистрация</a>
+                    {% else %}
+                        <a href="{{ url_for('logout') }}" class="auth-btn logout-btn">Выйти</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Формы авторизации для неавторизованных пользователей -->
+            {% if not session.username %}
+            <div class="auth-forms">
+                <!-- Форма входа -->
+                <div id="login-form" class="auth-form {% if request.args.get('form') == 'login' %}active{% endif %}">
+                    <h3>Вход в аккаунт</h3>
+                    <form method="POST" action="{{ url_for('login') }}">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Введите ваш email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Пароль</label>
+                            <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Войти</button>
+                    </form>
+                    <div class="switch-auth">
+                        Нет аккаунта? <a href="#register" onclick="showForm('register')">Зарегистрироваться</a>
+                    </div>
+                </div>
+
+                <!-- Форма регистрации -->
+                <div id="register-form" class="auth-form {% if request.args.get('form') == 'register' or not request.args.get('form') %}active{% endif %}">
+                    <h3>Регистрация</h3>
+                    <form method="POST" action="{{ url_for('registration') }}">
+                        <div class="form-group">
+                            <label for="reg_username">Имя пользователя</label>
+                            <input type="text" id="reg_username" name="username" placeholder="Введите имя пользователя" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg_email">Email</label>
+                            <input type="email" id="reg_email" name="email" placeholder="Введите ваш email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg_password">Пароль</label>
+                            <input type="password" id="reg_password" name="password" placeholder="Придумайте пароль" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg_confirm_password">Подтвердите пароль</label>
+                            <input type="password" id="reg_confirm_password" name="confirm_password" placeholder="Повторите пароль" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Зарегистрироваться</button>
+                    </form>
+                    <div class="switch-auth">
+                        Уже есть аккаунт? <a href="#login" onclick="showForm('login')">Войти</a>
                     </div>
                 </div>
             </div>
+            {% endif %}
 
             <div class="search-container">
                 <div class="search-box">
@@ -284,7 +861,13 @@
                 <div class="empty-state">
                     <i class="fas fa-comments"></i>
                     <p>Контакты не найдены</p>
-                    <p style="font-size: 12px; margin-top: 5px;">Используйте поиск для нахождения контактов</p>
+                    <p style="font-size: 12px; margin-top: 5px;">
+                        {% if session.username %}
+                            Используйте поиск для нахождения контактов
+                        {% else %}
+                            Авторизуйтесь для доступа к контактам
+                        {% endif %}
+                    </p>
                 </div>
             </div>
         </div>
@@ -300,7 +883,7 @@
                     </div>
                 </div>
                 <div class="chat-actions">
-                    <i  class="fas fa-phone-alt"></i>
+                    <i class="fas fa-phone-alt"></i>
                     <i class="fas fa-video"></i>
                     <i class="fas fa-info-circle"></i>
                 </div>
@@ -309,7 +892,13 @@
             <div class="messages-container">
                 <div class="chat-empty-state">
                     <i class="fas fa-comment-dots"></i>
-                    <h3>Выберите контакт для начала общения</h3>
+                    <h3>
+                        {% if session.username %}
+                            Выберите контакт для начала общения
+                        {% else %}
+                            Авторизуйтесь для начала общения
+                        {% endif %}
+                    </h3>
                     <p>Сообщения будут отображаться здесь</p>
                 </div>
             </div>
@@ -319,13 +908,32 @@
                     <button class="attachment-button">
                         <i class="fas fa-paperclip"></i>
                     </button>
-                    <input type="text" placeholder="Выберите контакт для отправки сообщения..." disabled>
-                    <button class="send-button" disabled>
+                    <input type="text" placeholder="{% if not session.username %}Авторизуйтесь для отправки сообщений{% else %}Выберите контакт для отправки сообщения...{% endif %}" {% if not session.username %}disabled{% endif %}>
+                    <button class="send-button" {% if not session.username %}disabled{% endif %}>
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Простая функция для переключения между формами
+        function showForm(formType) {
+            document.getElementById('login-form').style.display = formType === 'login' ? 'block' : 'none';
+            document.getElementById('register-form').style.display = formType === 'register' ? 'block' : 'none';
+
+            // Обновляем URL без перезагрузки страницы
+            history.pushState(null, null, '#' + formType);
+        }
+
+        // Автоматически скрываем уведомления через 5 секунд
+        setTimeout(function() {
+            const flashMessages = document.querySelectorAll('.flash-message');
+            flashMessages.forEach(function(message) {
+                message.style.display = 'none';
+            });
+        }, 5000);
+    </script>
 </body>
 </html>

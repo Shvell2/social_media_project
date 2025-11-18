@@ -1,5 +1,6 @@
 from app import db
 from flask_login import UserMixin
+from app import login
 
 
 class User(UserMixin, db.Model):
@@ -10,3 +11,8 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     # def __repr__(self):
     #     return 'User {}'.format(self.username)
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+

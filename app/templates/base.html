@@ -1,5 +1,6 @@
 <html lang="en">
   <head>
+    <link rel="stylesheet", href="url_for('static', file = css/style.css)"></link>
     <meta charset="utf-8">
     {% block title %}
         {% if title %}{{ title }}-social_media{% else %}Welcome to social_media{% endif %}
@@ -20,11 +21,12 @@
       </button>
       <a class="navbar-brand" href="/">social_media</a>
     </div>
-
+  </div>
+</nav>
 {% endblock %}
 
 {% block app_content %}
-	</div>
 {% endblock %}
-  </body>
+</body>
+
 </html>
