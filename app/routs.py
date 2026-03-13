@@ -7,6 +7,7 @@ from flask_login import current_user, login_user
 from app import app, db
 
 
+
 #настроить LoginManager
 
 @app.route("/")
@@ -26,7 +27,7 @@ def registration():
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('main_page'))
-    return render_template('registr.html', title='Register', form=form, username=form.username.data)
+    return render_template('index.html', Register_form=form, username=form.username.data)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -44,5 +45,5 @@ def login():
         if not next_page or urlsplit(next_page).netloc != '':
             next_page = url_for('main.index')
         return redirect(next_page)
-    return render_template('login.html', title=('Sign In'), form=form)
+    return render_template('index.html', Login_form=form)
 
