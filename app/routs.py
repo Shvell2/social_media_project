@@ -16,7 +16,7 @@ def main_page():
     return render_template('index.html')
 
 @app.route("/registr_page", methods=["POST", "GET"])
-def registration():
+def register():
     if current_user.is_authenticated:
         return redirect(url_for('index.html'))
     form = RegistrationForm()
@@ -26,8 +26,8 @@ def registration():
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('main_page'))
-    return render_template('index.html', Register_form=form, username=form.username.data)
+        return redirect(url_for('index.html'))
+    return render_template('register.html', Register_form=form, username=form.username.data)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -43,7 +43,7 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or urlsplit(next_page).netloc != '':
-            next_page = url_for('main.index')
+            next_page = url_for('index.html')
         return redirect(next_page)
-    return render_template('index.html', Login_form=form)
+    return render_template('login.html', Login_form=form)
 

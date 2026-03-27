@@ -1,0 +1,1 @@
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'registration'. Did you mean 'register' instead?
