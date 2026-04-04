@@ -10,13 +10,8 @@ from app import app, db
 
 #настроить LoginManager
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def main_page():
-
-    return render_template('index.html')
-
-@app.route("/registr_page", methods=["POST", "GET"])
-def register():
     if current_user.is_authenticated:
         return redirect(url_for('index.html'))
     form = RegistrationForm()
@@ -26,8 +21,24 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('index.html'))
-    return render_template('register.html', Register_form=form, username=form.username.data)
+        return redirect(url_for('main_page'))
+    flash(form.errors)
+    return render_template('index.html', Register_form=form, username=form.username.data)
+
+# @app.route("/register", methods=["POST", "GET"])
+# def register():
+#     if current_user.is_authenticated:
+#         return redirect(url_for('index.html'))
+#     form = RegistrationForm()
+#     if form.validate_on_submit():
+#         user = User(username=form.username.data, email=form.email.data)
+#         user.set_password(form.password.data)
+#         db.session.add(user)
+#         db.session.commit()
+#         flash('Congratulations, you are now a registered user!')
+#         return redirect(url_for('index.html'))
+#     flash(form.errors)
+#     return render_template('index.html', Register_form=form, username=form.username.data)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

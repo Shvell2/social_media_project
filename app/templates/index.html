@@ -820,11 +820,18 @@
                         Нет аккаунта? <a href="#register" onclick="showForm('register')">Зарегистрироваться</a>
                     </div>
                 </div>
-
+                {% with messages = get_flashed_messages() %}
+                   {% if messages %}
+                      {% for message in messages %}
+                         {{ message }}
+                      {% endfor %}
+                   {% endif %}
+                {% endwith %}
                 <!-- Форма регистрации -->
                 <div id="register-form" class="auth-form {% if request.args.get('form') == 'register' or not request.args.get('form') %}active{% endif %}">
                     <h3>Регистрация</h3>
-                    <form method="POST" action="{{ url_for('registration') }}">
+                    <form method="POST" action="{{ url_for('main_page') }}">
+                        {{  Register_form.csrf_token() }}
                         <div class="form-group">
                             <label for="reg_username">Имя пользователя</label>
                             <input type="text" id="reg_username" name="username" placeholder="Введите имя пользователя" required>
@@ -839,7 +846,7 @@
                         </div>
                         <div class="form-group">
                             <label for="reg_confirm_password">Подтвердите пароль</label>
-                            <input type="password" id="reg_confirm_password" name="confirm_password" placeholder="Повторите пароль" required>
+                            <input type="password" id="reg_confirm_password" name="password2" placeholder="Повторите пароль" required>
                         </div>
                         <button type="submit" class="submit-btn">Зарегистрироваться</button>
                     </form>
