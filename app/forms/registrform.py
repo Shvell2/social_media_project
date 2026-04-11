@@ -20,8 +20,12 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError("Please enter a different email")
 
-class Loginform(FlaskForm):
-    username = StringField("Username", validators=[DataRequired()])
-    email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[DataRequired()])
-    submit = SubmitField("Register")
+# class Loginform(FlaskForm):
+#     def __init__(self, formdata=_Auto, **kwargs):
+#         super().__init__(formdata, kwargs)
+#         self.remember_me = None
+#
+#     username = StringField("Username", validators=[DataRequired()])
+#     email = StringField("Email", validators=[DataRequired(), Email()])
+#     password = PasswordField("Password", validators=[DataRequired()])
+#     submit = SubmitField("Register")

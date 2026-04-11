@@ -778,19 +778,19 @@
             <div class="sidebar-header">
                 <div class="user-profile">
                     <div class="avatar">
-                        {% if session.username %}
-                            {{ session.username[0]|upper }}
+                        {% if current_user %}
+                            {{ current_user[0]|upper }}
                         {% else %}
                             ?
                         {% endif %}
                     </div>
                     <div class="user-info">
-                        <h3>{{ session.username if session.username else 'Гость' }}</h3>
-                        <p>{{ 'online' if session.username else 'не авторизован' }}</p>
+                        <h3>{{ current_user if current_user else 'Гость' }}</h3>
+                        <p>{{ 'online' if current_user else 'не авторизован' }}</p>
                     </div>
                 </div>
                 <div class="auth-buttons">
-                    {% if not session.username %}
+                    {% if not current_user %}
                         <a href="#login" class="auth-btn login-btn" onclick="showForm('login')">Войти</a>
                         <a href="#register" class="auth-btn register-btn" onclick="showForm('register')">Регистрация</a>
                     {% else %}
@@ -800,19 +800,24 @@
             </div>
 
             <!-- Формы авторизации для неавторизованных пользователей -->
-            {% if not session.username %}
+            {% if not current_user.is_authenticated %}
             <div class="auth-forms">
                 <!-- Форма входа -->
                 <div id="login-form" class="auth-form {% if request.args.get('form') == 'login' %}active{% endif %}">
                     <h3>Вход в аккаунт</h3>
-                    <form method="POST" action="{{ url_for('login') }}">
+                    <form method="POST" action="{{ url_for('main_page') }}">
+                        {{  Login_form.csrf_token() }}
+                         <div class="form-group">
+                            <label for="reg_username">Имя пользователя</label>
+                            <input type="text" id="username" name="login-username" placeholder="Введите имя пользователя" required>
+                        </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="Введите ваш email" required>
+                            <input type="email" id="email" name="login-email" placeholder="Введите ваш email" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Пароль</label>
-                            <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+                            <input type="password" id="password" name="login-password" placeholder="Введите пароль" required>
                         </div>
                         <button type="submit" class="submit-btn">Войти</button>
                     </form>
@@ -834,19 +839,19 @@
                         {{  Register_form.csrf_token() }}
                         <div class="form-group">
                             <label for="reg_username">Имя пользователя</label>
-                            <input type="text" id="reg_username" name="username" placeholder="Введите имя пользователя" required>
+                            <input type="text" id="reg_username" name="register-username" placeholder="Введите имя пользователя" required>
                         </div>
                         <div class="form-group">
                             <label for="reg_email">Email</label>
-                            <input type="email" id="reg_email" name="email" placeholder="Введите ваш email" required>
+                            <input type="email" id="reg_email" name="register-email" placeholder="Введите ваш email" required>
                         </div>
                         <div class="form-group">
                             <label for="reg_password">Пароль</label>
-                            <input type="password" id="reg_password" name="password" placeholder="Придумайте пароль" required>
+                            <input type="password" id="reg_password" name="register-password" placeholder="Придумайте пароль" required>
                         </div>
                         <div class="form-group">
                             <label for="reg_confirm_password">Подтвердите пароль</label>
-                            <input type="password" id="reg_confirm_password" name="password2" placeholder="Повторите пароль" required>
+                            <input type="password" id="reg_confirm_password" name="register-password2" placeholder="Повторите пароль" required>
                         </div>
                         <button type="submit" class="submit-btn">Зарегистрироваться</button>
                     </form>
@@ -869,7 +874,7 @@
                     <i class="fas fa-comments"></i>
                     <p>Контакты не найдены</p>
                     <p style="font-size: 12px; margin-top: 5px;">
-                        {% if session.username %}
+                        {% if current_user %}
                             Используйте поиск для нахождения контактов
                         {% else %}
                             Авторизуйтесь для доступа к контактам
@@ -900,7 +905,7 @@
                 <div class="chat-empty-state">
                     <i class="fas fa-comment-dots"></i>
                     <h3>
-                        {% if session.username %}
+                        {% if current_user %}
                             Выберите контакт для начала общения
                         {% else %}
                             Авторизуйтесь для начала общения
@@ -915,8 +920,8 @@
                     <button class="attachment-button">
                         <i class="fas fa-paperclip"></i>
                     </button>
-                    <input type="text" placeholder="{% if not session.username %}Авторизуйтесь для отправки сообщений{% else %}Выберите контакт для отправки сообщения...{% endif %}" {% if not session.username %}disabled{% endif %}>
-                    <button class="send-button" {% if not session.username %}disabled{% endif %}>
+                    <input type="text" placeholder="{% if not current_user %}Авторизуйтесь для отправки сообщений{% else %}Выберите контакт для отправки сообщения...{% endif %}" {% if not current_user %}disabled{% endif %}>
+                    <button class="send-button" {% if not current_user %}disabled{% endif %}>
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </div>
