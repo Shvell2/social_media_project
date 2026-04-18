@@ -5,12 +5,12 @@ from flask_migrate import Migrate
 
 from flask import Flask
 from flask_login import login_user, logout_user, current_user, LoginManager
-from flask_socketio import join_room, leave_room, send, SocketIO
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
-soketio = SocketIO(app)
+
 
 migrate = Migrate()
 login = LoginManager()

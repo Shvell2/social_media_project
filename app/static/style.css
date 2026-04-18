@@ -111,3 +111,34 @@ body {
 .terms-link:hover {
     text-decoration: underline;
 }
+
+.circle-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 100px;
+    left: 200px;
+}
+
+.btn-absolute {
+    position: absolute;
+    top: 100px;
+    left: 200px;
+
+    padding: 12px 24px;
+    background: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
