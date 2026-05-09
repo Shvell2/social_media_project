@@ -42,6 +42,16 @@ def main_page():
     flash(login_form.errors)
     return render_template('index.html', Register_form=register_form, Login_form=login_form, username=register_form.username.data)
 
+@app.route("/add_friend/<username>", methods=['GET', 'POST'])
+def add_friend(username):
+    if username in db.session.query(User).all():
+        user = User.query.filter_by(username = username).first()
+        current_user.friends.append(user)
+        db.session.commit()
+    return redirect("main_page")
+
+
+
 @socketio.on("message")
 def message(data):
     chat = session.get("room")

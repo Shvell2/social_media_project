@@ -891,7 +891,7 @@
                         {% endif %}
                     </p>
                 {% if current_user.is_authenticated %}
-                <button class="circle-btn">
+                <button class="circle-btn" onclick= "add_friend()">
                     +
                 </button>
                 {% endif %}
@@ -945,6 +945,9 @@
     </div>
 
     <script>
+    function add_friend() {
+    var friend_sign = prompt("write nickname");}
+
         // Простая функция для переключения между формами
         function showForm(formType) {
             document.getElementById('login-form').style.display = formType === 'login' ? 'block' : 'none';
